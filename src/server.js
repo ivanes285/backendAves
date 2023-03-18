@@ -8,8 +8,7 @@ const path= require('path');
 
 
 //SETTINGS
-app.set("PORT", process.env.PORT || 4000)
-
+app.set("PORT", process.env.PORT || 4000);
 
 
 //MIDLEWARES
@@ -27,10 +26,8 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 
-
 //Database
 require('./database');
-
 
 
 //Routes
