@@ -1,4 +1,4 @@
-const Place = require('../Models/Place')
+const Bird = require('../Models/Bird')
 const cloudinary = require("cloudinary");
 const fs = require("fs-extra"); 
 
@@ -55,20 +55,20 @@ class APIfeatures {
   
   
 
-const placeController = {
+const birdController = {
 
-getPlaces: async (req,res) => {
+getBirds: async (req,res) => {
 
     try {
-        const features = new APIfeatures(Place.find(), req.query)
+        const features = new APIfeatures(Bird.find(), req.query)
         .filtering().sorting().paginating()
 
-        const places = await features.query
+        const birds = await features.query
 
         res.json({
             status: 'success',
-            result: places.length,
-            places: places
+            result: birds.length,
+            birds: birds
         })
         
     } catch (error) {
@@ -77,10 +77,10 @@ getPlaces: async (req,res) => {
 
 },
 
-createPlace: async  (req, res)=> {
+createBird: async  (req, res)=> {
 
     try {
-        const { title, description, parroquia, category,zoom,lat,lng, contact } = req.body;
+        const { title, name, measure, song, observation, description, category,zoom,lat,lng } = req.body;
         // const position= JSON.parse(location)
         const archivos = req.files;
          const public_ids = [];
@@ -93,24 +93,26 @@ createPlace: async  (req, res)=> {
             urls.push(result.secure_url);
             public_ids.push(result.public_id);
         }
-        const newPlace = new Place({
+        const newBird = new Bird({
             title: title.toLowerCase(),
+            name,
+            measure,
+            song,
+            observation,
             description,
-            parroquia,
             category,
             zoom,
             lat,
             lng,
             images: urls,
-            public_id: public_ids,
-            contact
+            public_id: public_ids
         });
-        await newPlace.save();
+        await newBird.save();
         for (let a = 0; a < urls.length; a++) {
             fs.unlink(req.files[a].path); // con esto eliminamos la imagen de la app (uploads) y solo la tendremos en el server de cloudinary
            
         }
-        res.json({ message: 'Lugar Creado !!' });
+        res.json({ message: 'Ave Creado !!' });
 
     } catch (error) {
         // return res.status(500).json({ message: error.message });
@@ -118,7 +120,7 @@ createPlace: async  (req, res)=> {
     }
 },
 
-updatePlace: async (req, res) => {
+updateBird: async (req, res) => {
     try {
         const id = req.params.id;
 
@@ -128,7 +130,7 @@ updatePlace: async (req, res) => {
 
         if(archivos){
 
-          const ids= await Place.findById(id,{public_id:1,_id:0})
+          const ids= await Bird.findById(id,{public_id:1,_id:0})
           const cod= ids["public_id"]
           for (let i=0; i<cod.length; i++){
            await cloudinary.v2.uploader.destroy(cod[i]); //la eliminamos de cloudinary tambien
@@ -144,15 +146,15 @@ updatePlace: async (req, res) => {
 
         }
       
-        const { title,description,parroquia,category,zoom,lat,lng,contact } = req.body;
+        const { title,name, measure, song, observation, description,category,zoom,lat,lng } = req.body;
         // console.log('req.body',req.body)
-        await Place.findByIdAndUpdate(id, { $set:{ title:title.toLowerCase(),description,parroquia,
-            category,zoom,lat,lng,images:urls.length===0?undefined:urls, public_id: public_ids.length===0 ?undefined : public_ids ,contact}},{ new: true })
+        await Bird.findByIdAndUpdate(id, { $set:{ title:title.toLowerCase(),name, measure, song, observation, description,
+            category,zoom,lat,lng,images:urls.length===0?undefined:urls, public_id: public_ids.length===0 ?undefined : public_ids}},{ new: true })
             for (let a = 0; a < urls.length; a++) {
                 fs.unlink(req.files[a].path); // con esto eliminamos la imagen de la app (uploads) y solo la tendremos en el server de cloudinary
                
             }
-        res.json({ message: "Lugar Actualizado"})
+        res.json({ message: "Ave Actualizado"})
     } catch (error) {
       console.log("error",error)
     //   return res.status(500).json({ message: error.message });
@@ -163,16 +165,16 @@ updatePlace: async (req, res) => {
 
 
 
-deletePlace: async (req, res) => {
+deleteBird: async (req, res) => {
     try {
         const id = req.params.id;
-        const ids= await Place.findById(id,{public_id:1,_id:0})
-        await Place.findByIdAndDelete(id);
+        const ids= await Bird.findById(id,{public_id:1,_id:0})
+        await Bird.findByIdAndDelete(id);
         const cod= ids["public_id"]
         for (let i=0; i<cod.length; i++){
          await cloudinary.v2.uploader.destroy(cod[i]); //la eliminamos de cloudinary tambien
         }
-        res.status(200).json({ message: "Lugar Eliminado"})
+        res.status(200).json({ message: "Ave Eliminado"})
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }
@@ -182,4 +184,4 @@ deletePlace: async (req, res) => {
 
 }
 
-module.exports = placeController
+module.exports = birdController

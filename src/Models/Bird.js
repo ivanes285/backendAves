@@ -1,17 +1,29 @@
 const { Schema, model } = require("mongoose");
 
-const PlaceSchema = new Schema(
+const BirdSchema = new Schema(
   {
     title: {
       type: String,
       required: true,
       trim: true,
     },
-    description: {
+    name: {
       type: String,
       required: true,
     },
-    parroquia: {
+    measure: {
+      type: Number,
+      required: true,
+    },
+    song: {
+      type: String,
+      required: true,
+    },
+    observation: {
+      type: String,
+      required: true,
+    },
+    description: {
       type: String,
       required: true,
     },
@@ -38,11 +50,6 @@ const PlaceSchema = new Schema(
     zoom: { type: String,
        default: "12"
        },
-
-    contact: {
-      type: String,
-      default: "3836560",
-    },
     putuacion: {
       type: Number,
     },
@@ -57,4 +64,5 @@ const PlaceSchema = new Schema(
   }
 );
 
-module.exports = model("Places", PlaceSchema);
+
+module.exports = model("Birds", BirdSchema);
