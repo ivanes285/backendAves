@@ -11,8 +11,6 @@ class APIfeatures {
     //Filtrar
     filtering(){
        const queryObj = {...this.queryString} //queryString = req.query
-      //  console.log("queryObj",queryObj)
-      //  console.log({before: queryObj})
   
        const excludedFields = ['page', 'sort', 'limit']
        excludedFields.forEach(el => delete(queryObj[el]))
@@ -20,11 +18,7 @@ class APIfeatures {
        let queryStr = JSON.stringify(queryObj)
   
        queryStr = queryStr.replace(/\b(gte|gt|lt|lte|regex)\b/g, match => '$' + match)
-    
-    //    gte = greater than or equal
-    //    lte = lesser than or equal
-    //    lt = lesser than
-    //    gt = greater than
+
   
        this.query.find(JSON.parse(queryStr))
       //  console.log({after: queryObj})
