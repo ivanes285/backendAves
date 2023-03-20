@@ -45,11 +45,11 @@ const BirdSchema = new Schema(
     },
 
     lat: { type: String,
-      default: "0.04777"
+      default: "0.12222"
      },
 
     lng: { type: String,
-      default: "-78.22168"
+      default: "-79.25380"
      },
     zoom: { type: String,
        default: "12"
