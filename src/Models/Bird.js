@@ -11,6 +11,10 @@ const BirdSchema = new Schema(
       type: String,
       required: true,
     },
+    localname: {
+      type: String,
+      required: true,
+    },
     measure: {
       type: String,
       required: true,

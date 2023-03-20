@@ -80,7 +80,7 @@ getBirds: async (req,res) => {
 createBird: async  (req, res)=> {
 
     try {
-        const { title, name, measure, song, observation, description, category,zoom,lat,lng } = req.body;
+        const { title, name, localname, measure, song, observation, description, category,zoom,lat,lng } = req.body;
         // const position= JSON.parse(location)
         const archivos = req.files;
          const public_ids = [];
@@ -96,6 +96,7 @@ createBird: async  (req, res)=> {
         const newBird = new Bird({
             title: title.toLowerCase(),
             name,
+            localname,
             measure,
             song,
             observation,
@@ -146,9 +147,9 @@ updateBird: async (req, res) => {
 
         }
       
-        const { title,name, measure, song, observation, description,category,zoom,lat,lng } = req.body;
+        const { title,name, localname, measure, song, observation, description,category,zoom,lat,lng } = req.body;
         // console.log('req.body',req.body)
-        await Bird.findByIdAndUpdate(id, { $set:{ title:title.toLowerCase(),name, measure, song, observation, description,
+        await Bird.findByIdAndUpdate(id, { $set:{ title:title.toLowerCase(),name, localname, measure, song, observation, description,
             category,zoom,lat,lng,images:urls.length===0?undefined:urls, public_id: public_ids.length===0 ?undefined : public_ids}},{ new: true })
             for (let a = 0; a < urls.length; a++) {
                 fs.unlink(req.files[a].path); // con esto eliminamos la imagen de la app (uploads) y solo la tendremos en el server de cloudinary
