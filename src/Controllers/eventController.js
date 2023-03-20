@@ -74,9 +74,7 @@ getEvents: async (req,res) => {
 getLugares: async (req,res) => {
     try {
         const lugares= await Event.distinct('lugar')
-            // console.log("lugares",places);
          res.json({lugares});
-       
     } catch (error) {
          return res.status(500).json({message: error.message})
     }

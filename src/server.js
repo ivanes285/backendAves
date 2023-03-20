@@ -33,7 +33,7 @@ require('./database');
 //Routes
 app.use('/user',require('./Routes/user.routes'))
 app.use('/api',require('./Routes/category.routes'))
-app.use('/api',require('./Routes/place.routes'))
+app.use('/api',require('./Routes/bird.routes'))
 app.use('/api',require('./Routes/event.routes'))
 
 

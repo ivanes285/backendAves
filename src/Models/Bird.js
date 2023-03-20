@@ -12,7 +12,7 @@ const BirdSchema = new Schema(
       required: true,
     },
     measure: {
-      type: Number,
+      type: String,
       required: true,
     },
     song: {

@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {getPlaces,createPlace,updatePlace,deletePlace} = require('../Controllers/placeController')
+const {getBirds, createBird,updateBird,deleteBird} = require('../Controllers/birdController')
 const cloudinary = require("cloudinary");
 const multer = require("multer");
 const path= require("path");
@@ -24,9 +24,9 @@ cloudinary.config({
 
 
 
-router.route('/places').get(getPlaces).post([upload.array("file"),createPlace])
+router.route('/birds').get(getBirds).post([upload.array("file"),createBird])
 
 
-router.route('/places/:id').delete(deletePlace).put([upload.array("file"),updatePlace])
+router.route('/birds/:id').delete(deleteBird).put([upload.array("file"),updateBird])
 
 module.exports = router

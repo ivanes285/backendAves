@@ -112,7 +112,7 @@ createBird: async  (req, res)=> {
             fs.unlink(req.files[a].path); // con esto eliminamos la imagen de la app (uploads) y solo la tendremos en el server de cloudinary
            
         }
-        res.json({ message: 'Ave Creado !!' });
+        res.json({ message: 'Ave Registrada !!' });
 
     } catch (error) {
         // return res.status(500).json({ message: error.message });
@@ -154,7 +154,7 @@ updateBird: async (req, res) => {
                 fs.unlink(req.files[a].path); // con esto eliminamos la imagen de la app (uploads) y solo la tendremos en el server de cloudinary
                
             }
-        res.json({ message: "Ave Actualizado"})
+        res.json({ message: "Ave Actualizada"})
     } catch (error) {
       console.log("error",error)
     //   return res.status(500).json({ message: error.message });
@@ -174,7 +174,7 @@ deleteBird: async (req, res) => {
         for (let i=0; i<cod.length; i++){
          await cloudinary.v2.uploader.destroy(cod[i]); //la eliminamos de cloudinary tambien
         }
-        res.status(200).json({ message: "Ave Eliminado"})
+        res.status(200).json({ message: "Ave Eliminada"})
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }
