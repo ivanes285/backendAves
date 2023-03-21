@@ -4,9 +4,9 @@ const auth = require('../Middlewares/auth')
 const authAdmin = require('../Middlewares/authAdmin')
 
 
-router.route('/category').get( getCategories).post(auth,authAdmin,createCategory)
+router.route('/category').get( getCategories).post(auth,createCategory)
 
-router.route('/category/:id').delete(auth,authAdmin,deleteCategory).put(auth,authAdmin,updateCategory)
+router.route('/category/:id').delete(auth,deleteCategory).put(auth,updateCategory)
 
 
 
