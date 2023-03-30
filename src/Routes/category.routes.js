@@ -3,13 +3,8 @@ const {getCategories,createCategory,deleteCategory,updateCategory}=require('../C
 const auth = require('../Middlewares/auth')
 const authAdmin = require('../Middlewares/authAdmin')
 
-
 router.route('/category').get( getCategories).post(auth,createCategory)
 
 router.route('/category/:id').delete(auth,deleteCategory).put(auth,updateCategory)
-
-
-
-
 
 module.exports = router
